@@ -1,0 +1,51 @@
+@font-face {
+    font-family: "HKGrotesk Pro";
+    font-weight: 300;
+    src: url("./font/HKGroteskPro-Light.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: "HKGrotesk Pro";
+    font-weight: 300;
+    font-style: italic;
+    src: url("./font/HKGroteskPro-LightItalic.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: "HKGrotesk Pro";
+    font-weight: 400;
+    src: url("./font/HKGroteskPro-Regular.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: "HKGrotesk Pro";
+    font-weight: 400;
+    font-style: italic;
+    src: url("./font/HKGroteskPro-RegularItalic.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: "HKGrotesk Pro";
+    font-weight: 500;
+    src: url("./font/HKGroteskPro-Medium.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: "HKGrotesk Pro";
+    font-weight: 500;
+    font-style: italic;
+    src: url("./font/HKGroteskPro-MediumItalic.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: "HKGrotesk Pro";
+    font-weight: 700;
+    src: url("./font/HKGroteskPro-Bold.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: "HKGrotesk Pro";
+    font-weight: 700;
+    font-style: italic;
+    src: url("./font/HKGroteskPro-BoldItalic.woff2") format("woff2");
+}

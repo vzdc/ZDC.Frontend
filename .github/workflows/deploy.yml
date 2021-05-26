@@ -1,0 +1,43 @@
+name: Deploy ZDC.Frontend
+on:
+  push:
+    branches:
+      - main
+      - develop
+jobs:
+  Deploy-Prod:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+    - name: Update Local Repository
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.SSH_HOST_PROD }}
+        username: ${{ secrets.SSH_USER_PROD }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        script: cd /home/jake/ZDC.Frontend && git stash && git pull
+    - name: Run Deploy Script
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.SSH_HOST_PROD }}
+        username: ${{ secrets.SSH_USER_PROD }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        script: cd /home/jake/ZDC.Frontend && sudo chmod +x deploy.sh && ./deploy.sh
+  Deploy-Staging:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/develop'
+    steps:
+    - name: Update Local Repository
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.SSH_HOST_STAGING }}
+        username: ${{ secrets.SSH_USER_STAGING }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        script: cd /home/jake/ZDC.Frontend && git stash && git pull
+    - name: Run Deploy Script
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.SSH_HOST_STAGING }}
+        username: ${{ secrets.SSH_USER_STAGING }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        script: cd /home/jake/ZDC.Frontend && sudo chmod +x deploy.sh && ./deploy.sh

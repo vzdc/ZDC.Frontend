@@ -62,6 +62,25 @@
 .fill-light { fill: $light !important; }
 .fill-dark { fill: $dark !important; }
 
+// Scroll
+
+::-webkit-scrollbar {
+    width: 10px;
+    
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
 // Global
 
 * {
@@ -72,13 +91,31 @@
     line-height: 23px;
     font-feature-settings: 'pnum' on, 'salt' on, 'case' on, 'kern' off;
 }
+body {
+    background-color: $gray-300 !important;
+}
+
+// margins
+.container-zdc {
+    margin-left: 15% !important;
+    margin-right: 15% !important;
+}
 
 // Nav
+
+.nav {
+    background-color: $gray-800;
+}
+
+.nav-transparent {
+    background-color: transparent !important;
+}
 
 #navbar {
     padding-top: 2rem;
     padding-bottom: 2rem;
     color: $white !important;
+    transition: 300ms;
 }
 
 .navbar-nav {
@@ -100,5 +137,16 @@
     font-weight: 600 !important;
 }
 
+// Cards
 
+.card {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    .card-header {
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+        border-bottom: $gray-400;
+        background-color: $light;
+    }    
+}
 

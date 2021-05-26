@@ -1,13 +1,16 @@
 import React, { ReactElement, useEffect, useState } from "react";
-import { Button, Collapse, Nav, Navbar, NavDropdown } from "react-bootstrap";
-import { useLocation } from "react-router";
-import { Link } from "react-router-dom";
+import {  Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
+import { Link, useLocation } from "react-router-dom";
 import logo from "../theme/img/logo.png";
+import { isAuthenticated } from "../helpers/auth";
 
 export default function Navigation(): ReactElement {
+	const [scroll, setScroll] = useState(true);
+	const location = useLocation();
+	useEffect(() => window.addEventListener("scroll", () => setScroll(window.scrollY < 50 && window.location.pathname == "/")), []);
 	return (
-		<Navbar id="navbar" expand="xl" className="navbar-dark bg-gray-800 fixed-top font-w500">
-			<div className="container">
+		<Navbar id="navbar" expand="md" className={"navbar-dark fixed-top font-w500 " + (scroll && location.pathname == "/" ? "nav-transparent " : "nav")}>
+			<Container>
 				<Link to="/">
 					<Navbar.Brand>
 						<img src={logo} className="navbar-brand-img" alt="vZDC ARTCC" />
@@ -15,7 +18,6 @@ export default function Navigation(): ReactElement {
 				</Link>
 				<Navbar.Collapse>
 					<Nav>
-						<Nav.Link as={Link} to="/calendar">Calendar</Nav.Link>
 						<Nav.Link as={Link} to="/events">Events</Nav.Link>
 						<NavDropdown title="Controller Resources" id="controller-dropdown">
 							<NavDropdown.Item as={Link} to="/staff">Staff</NavDropdown.Item>
@@ -28,10 +30,18 @@ export default function Navigation(): ReactElement {
 							<NavDropdown.Item as={Link} to="/requeststaffing">Request Staffing</NavDropdown.Item>
 							<NavDropdown.Item as={Link} to="/Feedback">Feedback</NavDropdown.Item>
 						</NavDropdown>
-						<Nav.Link as={Link} to="/login">Login</Nav.Link>
+						{
+							isAuthenticated() ? 
+								<NavDropdown title="Pilot Resources" id="pilot-dropdown">
+									<NavDropdown.Item as={Link} to="/charts">Charts</NavDropdown.Item>
+									<NavDropdown.Item as={Link} to="/requeststaffing">Request Staffing</NavDropdown.Item>
+									<NavDropdown.Item as={Link} to="/Feedback">Feedback</NavDropdown.Item>
+								</NavDropdown> :
+								<Nav.Link as={Link} to="/login">Login</Nav.Link>
+						}
 					</Nav>
 				</Navbar.Collapse>
-			</div>
+			</Container>
 		</Navbar>
 	);
 }

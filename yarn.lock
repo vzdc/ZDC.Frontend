@@ -1197,6 +1197,11 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
+"@fortawesome/fontawesome-free@^5.15.3":
+  version "5.15.3"
+  resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-free/-/fontawesome-free-5.15.3.tgz#c36ffa64a2a239bf948541a97b6ae8d729e09a9a"
+  integrity sha512-rFnSUN/QOtnOAgqFRooTA3H57JLDm0QEG/jPdk+tLQNL/eWd+Aok8g3qCI+Q1xuDPWpGW/i9JySpJVsq8Q0s9w==
+
 "@hapi/address@2.x.x":
   version "2.1.4"
   resolved "https://registry.yarnpkg.com/@hapi/address/-/address-2.1.4.tgz#5d67ed43f3fd41a69d4b9ff7b56e7c0d1d0a81e5"
@@ -1521,7 +1526,7 @@
     schema-utils "^2.6.5"
     source-map "^0.7.3"
 
-"@popperjs/core@^2.8.6":
+"@popperjs/core@^2.8.6", "@popperjs/core@^2.9.2":
   version "2.9.2"
   resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.9.2.tgz#adea7b6953cbb34651766b0548468e743c6a2353"
   integrity sha512-VZMYa7+fXHdwIq1TDhSXoVmSPEGM/aa+6Aiq3nVVJ9bXr24zScr+NlKFKC3iPljA7ho/GAZr+d2jOf5GIRC30Q==

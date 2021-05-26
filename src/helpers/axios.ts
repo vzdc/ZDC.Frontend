@@ -10,8 +10,4 @@ const instance = axios.create({
 	}
 });
 
-instance.interceptors.response.use(
-    
-);
-
 export default instance;

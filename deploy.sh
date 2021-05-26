@@ -1,8 +1,10 @@
 cd /home/jake/ZDC.Frontend
 
-sudo npm run build
+npm install
 
-mv build /var/www/ZDC.Frontend/
+npm run build
+
+sudo mv build /var/www/ZDC.Frontend/
 
 sudo cp .env /var/www/ZDC.Frontend/.env
 

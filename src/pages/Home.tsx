@@ -100,7 +100,7 @@ export default function Home(): ReactElement {
 				<tbody>
 					{
 						events.length > 0 ?
-							events?.filter(x => x.open).map(event => (
+							events?.filter(x => x.open)?.map(event => (
 								<tr key={event.id}>
 									<td>
 										<img className="img-fluid" src={event.banner} />

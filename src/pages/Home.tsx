@@ -77,7 +77,7 @@ export default function Home(): ReactElement {
 				<tbody>
 					{
 						controllers.length > 0 ?
-							controllers.map(controller => (
+							controllers?.map(controller => (
 								<tr key={controller.id}>
 									<td className="text-center">{ controller.position }</td>
 									<td className="text-center">{ controller.frequency }</td>
@@ -100,7 +100,7 @@ export default function Home(): ReactElement {
 				<tbody>
 					{
 						events.length > 0 ?
-							events.filter(x => x.open).map(event => (
+							events?.filter(x => x.open).map(event => (
 								<tr key={event.id}>
 									<td>
 										<img className="img-fluid" src={event.banner} />
@@ -122,7 +122,7 @@ export default function Home(): ReactElement {
 				<tbody>
 					{
 						announcements.length > 0 ?
-							announcements.map(announcement => (
+							announcements?.map(announcement => (
 								<tr key={announcement.id}>
 									<td>{announcement.title}</td>
 								</tr>
@@ -151,7 +151,7 @@ export default function Home(): ReactElement {
 				<tbody>
 					{
 						airports.length > 0 ?
-							airports.map(airport => (
+							airports?.map(airport => (
 								<tr key={airport.id}>
 									<td className="text-center">{airport.icao}</td>
 									<td className="text-center">{airport.metar.conditions}</td>
@@ -183,7 +183,7 @@ export default function Home(): ReactElement {
 				<tbody>
 					{
 						overflights.length > 0 ?
-							overflights.filter(x => x.arrival && x.departure && x.route).map(overflight => (
+							overflights?.filter(x => x.arrival && x.departure && x.route).map(overflight => (
 								<tr key={overflight.id}>
 									<td className="text-center">{overflight.callsign}</td>
 									<td className="text-center">{overflight.departure}</td>

@@ -109,6 +109,14 @@ a {
     flex: 1 0 auto;
 }
 
+// home image
+.home-image {
+    background-image: url("./img/Washington.jpg");
+    background-size: cover;
+    height: 57.5vh; 
+    width: 100%
+}
+
 // margins
 .container-zdc {
     margin-left: 15% !important;

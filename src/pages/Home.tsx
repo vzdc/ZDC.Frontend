@@ -6,7 +6,6 @@ import instance from "../helpers/axios";
 import { OnlineController } from "../models/OnlineController";
 import { Event } from "../models/Event";
 import { Announcement } from "../models/Announcement";
-import homeImage from "../theme/img/Washington.jpg";
 import { Airport } from "../models/Airport";
 import { Overflight } from "../models/Overflight";
 

@@ -15,11 +15,10 @@ export function Login(): ReactElement {
 	useEffect(() => {
 		if (auth_code) {
 			Instance
-				.post("/auth/token/", { code: auth_code })
+				.get(`/auth/token?code=${auth_code}`)
 				.then(res => {
-					localStorage.setItem("access", res.data.access);
-					localStorage.setItem("refresh", res.data.refresh);
-					Instance.defaults.headers["Authorization"] = "Bearer " + res.data.access;
+					localStorage.setItem("access", res.data.token);
+					Instance.defaults.headers["Authorization"] = "Bearer " + res.data.token;
 
 					enqueueSnackbar("Logged in as " + getFullName(), {
 						variant: "success",
@@ -60,7 +59,7 @@ export function Logout(): ReactElement {
 		localStorage.removeItem("refresh");
 		delete Instance.defaults.headers["Authorization"];
 
-		enqueueSnackbar("You have been logged out, see you soon!", {
+		enqueueSnackbar("You have been logged out", {
 			variant: "success",
 			autoHideDuration: 3000,
 			anchorOrigin: {

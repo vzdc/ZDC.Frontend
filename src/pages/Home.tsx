@@ -39,7 +39,7 @@ export default function Home(): ReactElement {
 
 	useEffect(() => {
 		document.title = "Washington ARTCC - Home";
-		instance.get<OnlineController[]>("/Users/Online/full")
+		instance.get<OnlineController[]>("/Users/Online?full=true")
 			.then(response => {
 				setOnlineControllers(response.data);
 			});
@@ -49,7 +49,7 @@ export default function Home(): ReactElement {
 				setEvents(response.data);
 			});
 
-		instance.get<Announcement[]>("/Announcements/full")
+		instance.get<Announcement[]>("/Announcements?full=true")
 			.then(response => {
 				setAnnouncements(response.data);
 			});
@@ -183,7 +183,7 @@ export default function Home(): ReactElement {
 				<tbody>
 					{
 						overflights.length > 0 ?
-							overflights?.filter(x => x.arrival && x.departure && x.route).map(overflight => (
+							overflights?.filter(x => x.arrival && x.departure && x.route)?.map(overflight => (
 								<tr key={overflight.id}>
 									<td className="text-center">{overflight.callsign}</td>
 									<td className="text-center">{overflight.departure}</td>

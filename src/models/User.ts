@@ -32,7 +32,7 @@ export interface User {
     updated: Date;
 }
 
-enum UserRating {
+export enum UserRating {
     OBS = 1,
     S1,
     S2,
@@ -45,7 +45,7 @@ enum UserRating {
     ADM
 }
 
-enum UserRole {
+export enum UserRole {
     ATM,
     DATM,
     TA,
@@ -59,13 +59,13 @@ enum UserRole {
     None
 }
 
-enum TrainingRole {
+export enum TrainingRole {
     INS,
     MTR,
     None
 }
 
-enum UserStatus {
+export enum UserStatus {
     Active,
     Inactive,
     Loa,

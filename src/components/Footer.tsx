@@ -2,11 +2,12 @@ import React, { ReactElement } from "react";
 import { Col, Row } from "react-bootstrap";
 import flyHigh from "../theme/img/flyhigh.png";
 import vatstar from "../theme/img/vatstar.png";
+import { isAuthenticated } from "../helpers/auth";
 
 export default function Footer(): ReactElement {
 	const date = new Date().getFullYear();
 	return (
-		<footer className="container-fluid bg-gray-800 text-white"
+		<footer id="footer" className="container-fluid bg-gray-800 text-white"
 			style={{ paddingTop: "1%", paddingBottom: "1%" }}>
 			<Row>
 				<Col sm>
@@ -23,17 +24,18 @@ export default function Footer(): ReactElement {
 				</Col>
 			</Row>
 			<Row>
-				<Col sm={4}></Col>
-				<Col sm className="text-center">
-					<a className="text-white" href="/bugreport">Bug Report</a>
-				</Col>
+				<Col sm={5}></Col>
+				{
+					isAuthenticated() ?
+						<Col sm className="text-center">
+							<a className="text-white" href="/bugreport">Bug Report</a>
+						</Col> :
+						<></>
+				}
 				<Col sm className="text-center">
 					<a className="text-white" href="/privacy">Privacy Policy</a>
 				</Col>
-				<Col sm className="text-center">
-					<a className="text-white" href="/changelog">Changelog</a>
-				</Col>
-				<Col sm={4}></Col>
+				<Col sm={5}></Col>
 			</Row>
 			<Row>
 				<Col sm className="text-center">

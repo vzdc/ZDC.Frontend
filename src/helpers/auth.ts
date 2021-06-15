@@ -54,14 +54,14 @@ enum TrainingRole {
 }
 
 export function getAuthURL(): string {
-	return "https://auth-dev.vatsim.net/oauth/authorize" +
+	return "https://auth.vatsim.net/oauth/authorize" +
         "?client_id=" + process.env.REACT_APP_VATSIM_CONNECT_CLIENT_ID +
         "&redirect_uri=" + process.env.REACT_APP_VATSIM_CONNECT_REDIRECT_URI +
         "&response_type=code&scope=full_name+vatsim_details+email" +
         "&required_scopes=full_name+vatsim_details+email";
 }
 
-export function parseJWT(): unknown {
+export function parseJWT(): Token | null {
 	const accessToken = localStorage.getItem("access");
 	if (accessToken) {
 		const token: Token = JSON.parse(atob(accessToken.split(".")[1]));
@@ -72,109 +72,70 @@ export function parseJWT(): unknown {
 
 export function isAuthenticated(): boolean {
 	const jwt = parseJWT();
-	return jwt instanceof Token;
+	return jwt != null;
 }
 
 export function isMember(): boolean {
-	const jwt = parseJWT();
-	if (jwt instanceof Token) {
-		return jwt.isMember;
-	}
-	return false;
+	const jwt = parseJWT() as Token;
+	return jwt.isMember;
 }
 
 export function isTrainingStaff(): boolean {
-	const jwt = parseJWT();
-	if (jwt instanceof Token) {
-		return jwt.trainingRole != TrainingRole.None;
-	}
-	return false;
+	const jwt = parseJWT() as Token;
+	return jwt.trainingRole != TrainingRole.None;
 }
 
 export function isInstructor(): boolean {
-	const jwt = parseJWT();
-	if (jwt instanceof Token) {
-		return jwt.trainingRole == TrainingRole.INS;
-	}
-	return false;
+	const jwt = parseJWT() as Token;
+	return jwt.trainingRole == TrainingRole.INS;
 }
 
 export function isStaff(): boolean {
-	const jwt = parseJWT();
-	if (jwt instanceof Token) {
-		return jwt.userRole != UserRole.None;
-	}
-	return false;
+	const jwt = parseJWT() as Token;
+	return jwt.userRole != UserRole.None;
 }
 
 export function isSeniorStaff(): boolean {
-	const jwt = parseJWT();
-	if (jwt instanceof Token) {
-		return jwt.userRole in [UserRole.ATM, UserRole.DATM, UserRole.TA, UserRole.WM];
-	}
-	return false;
+	const jwt = parseJWT() as Token;
+	return jwt.userRole in [UserRole.ATM, UserRole.DATM, UserRole.TA, UserRole.WM];
 }
 
 export function getCid(): number {
-	const jwt = parseJWT();
-	if (jwt instanceof Token) {
-		return jwt.cid;
-	}
-	return Number.MIN_SAFE_INTEGER;
+	const jwt = parseJWT() as Token;
+	return jwt.cid;
 }
 
 export function getFirstName(): string {
-	const jwt = parseJWT();
-	if (jwt instanceof Token) {
-		return jwt.firstName;
-	}
-	return "";
+	const jwt = parseJWT() as Token;
+	return jwt.firstName;
 }
 
 export function getLastName(): string {
-	const jwt = parseJWT();
-	if (jwt instanceof Token) {
-		return jwt.lastName;
-	}
-	return "";
+	const jwt = parseJWT() as Token;
+	return jwt.lastName;
 }
 
 export function getFullName(): string {
-	const jwt = parseJWT();
-	if (jwt instanceof Token) {
-		return `${jwt.firstName} ${jwt.lastName}`;
-	}
-	return "";
+	const jwt = parseJWT() as Token;
+	return `${jwt.firstName} ${jwt.lastName}`;
 }
 
 export function getReverseNameCid(): string {
-	const jwt = parseJWT();
-	if (jwt instanceof Token) {
-		return `${jwt.lastName}, ${jwt.firstName} - ${jwt.cid}`;
-	}
-	return "";
+	const jwt = parseJWT() as Token;
+	return `${jwt.lastName}, ${jwt.firstName} - ${jwt.cid}`;
 }
 
 export function getUserRating(): UserRating {
-	const jwt = parseJWT();
-	if (jwt instanceof Token) {
-		return jwt.rating;
-	}
-	return UserRating.OBS;
+	const jwt = parseJWT() as Token;
+	return jwt.rating;
 }
 
 export function getUserRole(): UserRole {
-	const jwt = parseJWT();
-	if (jwt instanceof Token) {
-		return jwt.userRole;
-	}
-	return UserRole.None;
+	const jwt = parseJWT() as Token;
+	return jwt.userRole;
 }
 
 export function getTrainingRole(): TrainingRole {
-	const jwt = parseJWT();
-	if (jwt instanceof Token) {
-		return jwt.trainingRole;
-	}
-	return TrainingRole.None;
+	const jwt = parseJWT() as Token;
+	return jwt.trainingRole;
 }

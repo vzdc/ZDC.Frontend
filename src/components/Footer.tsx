@@ -1,10 +1,16 @@
-import React, { ReactElement } from "react";
+import React, { ReactElement, useEffect, useState } from "react";
+import { useLocation } from "react-router";
 import { Col, Row } from "react-bootstrap";
 import flyHigh from "../theme/img/flyhigh.png";
 import vatstar from "../theme/img/vatstar.png";
 import { isAuthenticated } from "../helpers/auth";
 
 export default function Footer(): ReactElement {
+	const [render, setRender] = useState(false);
+	const location = useLocation();
+    
+	useEffect(() => setRender(!render), [location]);
+
 	const date = new Date().getFullYear();
 	return (
 		<footer id="footer" className="container-fluid bg-gray-800 text-white"

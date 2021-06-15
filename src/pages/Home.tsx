@@ -203,7 +203,7 @@ export default function Home(): ReactElement {
 
 	return (
 		<>
-			<img src={homeImage} className="img-fluid" alt="Washington DC" />
+			<img src={homeImage} className="img-fluid" alt="Washington DC" style={{ backgroundSize: "cover" }} />
 			<div className="container-zdc">
 				<Row>
 					<Col sm={7}>

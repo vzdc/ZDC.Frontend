@@ -153,10 +153,10 @@ export default function Home(): ReactElement {
 							airports?.map(airport => (
 								<tr key={airport.id}>
 									<td className="text-center">{airport.icao}</td>
-									<td className="text-center">{airport.metar.conditions}</td>
-									<td className="text-center">{airport.metar.wind}</td>
-									<td className="text-center">{airport.metar.temp}</td>
-									<td className="text-center">{airport.metar.altimeter}</td>
+									<td className="text-center">{airport.conditions}</td>
+									<td className="text-center">{airport.wind}</td>
+									<td className="text-center">{airport.temp}</td>
+									<td className="text-center">{airport.altimeter}</td>
 								</tr>
 							)) :
 							<tr>

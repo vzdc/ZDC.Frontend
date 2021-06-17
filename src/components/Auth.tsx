@@ -3,7 +3,7 @@ import { useHistory, useLocation } from "react-router";
 import { useSnackbar } from "notistack";
 import Instance from "../helpers/axios";
 import { getAuthURL, getFullName } from "../helpers/auth";
-import Home from "../pages/Home";
+import LoadingScreen from "./LoadingScreen";
 
 export function Login(): ReactElement {
 	const { search } = useLocation();
@@ -47,7 +47,7 @@ export function Login(): ReactElement {
 			window.location.href = getAuthURL();
 		}
 	});
-	return (<Home />);
+	return <LoadingScreen />;
 }
 
 export function Logout(): ReactElement {
@@ -70,5 +70,5 @@ export function Logout(): ReactElement {
 
 		history.push("/");
 	});
-	return (<Home />);
+	return <LoadingScreen />;
 }

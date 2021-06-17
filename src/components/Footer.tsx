@@ -23,7 +23,7 @@ export default function Footer(): ReactElement {
 					</a>
 				</Col>
 				<Col sm>
-					<a href="https://www.flyhighva.com/" target="_blank" rel="noreferrer">
+					<a href="https://www.flyhighva.org/" target="_blank" rel="noreferrer">
 						<img className="img-fluid" src={flyHigh} alt="Fly High Virtual"
 							style={{ width: "300px", height: "auto" }} />
 					</a>

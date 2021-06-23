@@ -5,6 +5,7 @@ export interface Feedback {
     name: string;
     callsign: string;
     email: string;
+    userId: number;
     user: User;
     facility: string;
     service: ServiceLevel;

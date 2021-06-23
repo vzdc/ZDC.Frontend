@@ -1,6 +1,8 @@
 export interface BugReport {
 
     id: number;
+    name: string;
+    cid: number;
     datetime: Date;
     desciption: string;
     status: BugReportType;    

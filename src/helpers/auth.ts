@@ -5,17 +5,15 @@ class Token {
     lastName: string;
     rating: UserRating;
     isMember: boolean;
-    userRole: UserRole;
-    trainingRole: TrainingRole;
+    roles: string[];
 
-    constructor(cid: number, firstName: string, lastName: string, rating: UserRating, isMember: boolean, userrole: UserRole, trainingRole: TrainingRole) {
+    constructor(cid: number, firstName: string, lastName: string, rating: UserRating, isMember: boolean, roles: string[]) {
     	this.cid = cid;
     	this.firstName = firstName;
     	this.lastName = lastName;
     	this.rating = rating;
     	this.isMember = isMember;
-    	this.userRole = userrole;
-    	this.trainingRole = trainingRole;
+    	this.roles = roles;
     }
 }
 
@@ -33,25 +31,24 @@ enum UserRating {
     ADM
 }
 
-enum UserRole {
-    ATM,
-    DATM,
-    TA,
-    ATA,
-    WM,
-    AWM,
-    EC,
-    AEC,
-    FE,
-    AFE,
-    None
-}
+const staffRoles: string[] = [
+	"ATM",
+	"DATM",
+	"TA",
+	"WM",
+	"EC",
+	"FE",
+	"ATA",
+	"AWM",
+	"AEC",
+	"AFE"
+];
 
-enum TrainingRole {
-    INS,
-    MTR,
-    None
-}
+const trainingRoles: string[] = [
+	"INS",
+	"MTR"
+];
+
 
 export function getAuthURL(): string {
 	return "https://auth.vatsim.net/oauth/authorize" +
@@ -82,22 +79,30 @@ export function isMember(): boolean {
 
 export function isTrainingStaff(): boolean {
 	const jwt = parseJWT() as Token;
-	return jwt.trainingRole != TrainingRole.None;
+	if (jwt == null || jwt.roles == null)
+		return false;
+	return trainingRoles.some(x => jwt.roles.indexOf(x) !== -1);
 }
 
 export function isInstructor(): boolean {
 	const jwt = parseJWT() as Token;
-	return jwt.trainingRole == TrainingRole.INS;
+	if (jwt == null || jwt.roles == null)
+		return false;
+	return jwt.roles.includes("INS");
 }
 
 export function isStaff(): boolean {
 	const jwt = parseJWT() as Token;
-	return jwt.userRole != UserRole.None;
+	if (jwt == null || jwt.roles == null)
+		return false;
+	return staffRoles.some(x => jwt.roles.indexOf(x) !== -1);
 }
 
 export function isSeniorStaff(): boolean {
 	const jwt = parseJWT() as Token;
-	return jwt.userRole in [UserRole.ATM, UserRole.DATM, UserRole.TA, UserRole.WM];
+	if (jwt == null || jwt.roles == null)
+		return false;
+	return ["ATM", "DATM", "TA","ATA"].some(x => jwt.roles.indexOf(x) !== -1);
 }
 
 export function getCid(): number {
@@ -130,12 +135,9 @@ export function getUserRating(): UserRating {
 	return jwt.rating;
 }
 
-export function getUserRole(): UserRole {
+export function getRoles(): string[] {
 	const jwt = parseJWT() as Token;
-	return jwt.userRole;
-}
-
-export function getTrainingRole(): TrainingRole {
-	const jwt = parseJWT() as Token;
-	return jwt.trainingRole;
+	if (jwt == null || jwt.roles == null)
+		return [];
+	return jwt.roles;
 }

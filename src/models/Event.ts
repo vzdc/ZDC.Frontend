@@ -1,5 +1,4 @@
 import { EventPosition } from "./EventPosition";
-import { EventRegistration } from "./EventRegistration";
 
 export interface Event {
     id: number;
@@ -10,7 +9,6 @@ export interface Event {
     start: Date;
     end: Date;
     open: boolean;
-    registrations: EventRegistration[];
     positions: EventPosition[];
     created: Date;
     updated: Date;

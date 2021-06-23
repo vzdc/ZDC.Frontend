@@ -1,10 +1,8 @@
-import { User } from "./User";
-
 export interface OnlineController {
     id: number;
+    name: string;
     position: string;
     frequency: string;
-    user: User;
     online: string;
     created: Date;
 }

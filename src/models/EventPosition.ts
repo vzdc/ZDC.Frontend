@@ -1,6 +1,11 @@
 export interface EventPosition {
     id: number;
     position: string;
-    created: Date;
-    updated: Date;
+    type: EventPosotionType;
+}
+
+enum EventPosotionType {
+    Local,
+    Tracon,
+    Center
 }

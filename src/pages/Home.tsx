@@ -38,7 +38,7 @@ export default function Home(): ReactElement {
 
 	useEffect(() => {
 		document.title = "Washington ARTCC - Home";
-		instance.get<OnlineController[]>("/Users/Online?full=true")
+		instance.get<OnlineController[]>("/OnlineControllers")
 			.then(response => {
 				setOnlineControllers(response.data);
 			});
@@ -80,7 +80,7 @@ export default function Home(): ReactElement {
 								<tr key={controller.id}>
 									<td className="text-center">{ controller.position }</td>
 									<td className="text-center">{ controller.frequency }</td>
-									<td className="text-center">{ controller.user.fullName }</td>
+									<td className="text-center">{ controller.name }</td>
 									<td className="text-center">{ controller.online }</td>
 								</tr>
 							)) :

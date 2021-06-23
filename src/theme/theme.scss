@@ -128,7 +128,6 @@ a {
 }
 
 // Nav
-
 .nav {
     background-color: $gray-800;
 }
@@ -164,7 +163,6 @@ a {
 }
 
 // Cards
-
 .card {
     margin-top: 1rem;
     margin-bottom: 1rem;
@@ -173,10 +171,46 @@ a {
         padding-bottom: 1rem;
         border-bottom: $gray-400;
         background-color: $light;
-    }    
+    } 
 }
 
 // Staff
 .top {
     min-height: 40px;
+}
+
+// Roster
+.roster-user {
+    margin: 0.2rem;
+    padding: 0.6rem;
+    font-size: 0.85rem;
+}
+
+.nav-tabs {
+    display: flex;
+    justify-content: center;
+    background-color: $white;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+
+    .nav-item {
+        color: $black !important;
+        background-color: $gray-300 !important;
+        border-radius: 5px !important;
+    }
+
+    .active {
+        color: $white !important;
+        background-color: $gray-800 !important;
+    }
+}
+
+td > a {
+    color: $black;
+
+    :hover {
+        color: $black;
+        text-decoration: underline;
+        text-decoration-color: $black;
+    }
 }

@@ -1,6 +1,12 @@
+import { User } from "./User";
+import { Event } from "./Event";
+
 export interface EventRegistration {
     id: number;
-    positon: string;
+    userId: number;
+    user: User;
+    eventId: number;
+    event: Event;
     start: Date;
     end: Date;
     created: Date;

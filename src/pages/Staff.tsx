@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react/prop-types */
 
 import React, { ReactElement, useEffect, useState } from "react";
 import { Card, Col, Container, Row } from "react-bootstrap";
 import instance from "../helpers/axios";
-import { User, UserRole } from "../models/User";
+import { User } from "../models/User";
 
 interface StaffMemberProps {
     user: User | undefined;
@@ -14,16 +15,16 @@ interface StaffMemberProps {
 export default function Staff(): ReactElement {
 
 	const [staff, setStaff] = useState<User[]>([]);
-	const atm = staff.find(x => x.role == UserRole.ATM);
-	const datm = staff.find(x => x.role == UserRole.DATM);
-	const ta = staff.find(x => x.role == UserRole.TA);
-	const wm = staff.find(x => x.role == UserRole.WM);
-	const ec = staff.find(x => x.role == UserRole.EC);
-	const fe = staff.find(x => x.role == UserRole.FE);
-	const ata = staff.find(x => x.role == UserRole.ATA);
-	const awm = staff.find(x => x.role == UserRole.AWM);
-	const aec = staff.find(x => x.role == UserRole.AEC);
-	const afe = staff.find(x => x.role == UserRole.AFE);
+	// const atm = staff.find(x => x.role == UserRole.ATM);
+	// const datm = staff.find(x => x.role == UserRole.DATM);
+	// const ta = staff.find(x => x.role == UserRole.TA);
+	// const wm = staff.find(x => x.role == UserRole.WM);
+	// const ec = staff.find(x => x.role == UserRole.EC);
+	// const fe = staff.find(x => x.role == UserRole.FE);
+	// const ata = staff.find(x => x.role == UserRole.ATA);
+	// const awm = staff.find(x => x.role == UserRole.AWM);
+	// const aec = staff.find(x => x.role == UserRole.AEC);
+	// const afe = staff.find(x => x.role == UserRole.AFE);
 
 	useEffect(() => {
 		document.title = "Washington ARTCC - Staff";
@@ -54,7 +55,7 @@ export default function Staff(): ReactElement {
 					<i className="fas fa-users-cog"></i> Staff
 				</Card.Header>
 			</Card>
-			<Row>
+			{/* <Row>
 				<Col sm className="mx-auto">
 					<StaffMember user={atm} position="Air Traffic Manager" positionShort="atm" />
 				</Col>
@@ -105,7 +106,7 @@ export default function Staff(): ReactElement {
 						</Col> :
 						<></>
 				}
-			</Row>
+			</Row> */}
 		</Container>
 	);
 }

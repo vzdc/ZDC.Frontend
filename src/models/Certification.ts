@@ -1,17 +1,28 @@
 export interface Certification {
     id: number;
-    ground: CertificationType;
-    tower: CertificationType;
-    minorApproach: CertificationType;
-    chesapeake: CertificationType;
-    shenandoah: CertificationType;
-    mountVernon: CertificationType;
-    center: CertificationType;
-    created: Date;
-    updated: Date;
+    ground: Local;
+    tower: Local;
+    minorApproach: Tracon;
+    chesapeake: Tracon;
+    shenandoah: Tracon;
+    mountVernon: Tracon;
+    center: Center;
 }
 
-enum CertificationType {
+export enum Center {
+    None,
+    Solo,
+    Certified
+}
+
+export enum Tracon {
+    None,
+    Solo,
+    Certified
+}
+
+
+export enum Local {
     None,
     Solo,
     Minor,

@@ -1,7 +1,10 @@
+import { User } from "./User";
+
 export interface Loa {
     id: number;
+    userId: number;
+    user: User;
     reason: string;
-    moreinfo: string;
     start: Date;
     end: Date;
     status: LoaStatus;
@@ -11,10 +14,9 @@ export interface Loa {
 
 enum LoaStatus {
     Pending,
-    MoreInfo,
     Accepted,
     Started,
-    Canceled,
+    Cancelled,
     Ended,
     Controlled
 }

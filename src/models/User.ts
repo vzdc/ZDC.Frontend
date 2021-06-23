@@ -1,10 +1,5 @@
 import { Certification } from "./Certification";
-import { Dossier } from "./Dossier";
-import { Feedback } from "./Feedback";
-import { Hours } from "./Hours";
-import { Loa } from "./Loa";
-import { Warning } from "./Warning";
-
+import { Role } from "./Role";
 export interface User {
     id: number;
     firstName: string;
@@ -14,14 +9,9 @@ export interface User {
     email: string;
     reverseNameCid: string;
     userRating: UserRating;
+    ratingLong: string;
     certifications: Certification;
-    loas: Loa[];
-    warnings: Warning[];
-    dossierEntries: Dossier[];
-    feedback: Feedback[];
-    hours: Hours[];
-    role: UserRole;
-    trainingRole: TrainingRole;
+    roles: Role[];
     training: boolean;
     events: boolean;
     visitor: boolean;
@@ -33,36 +23,19 @@ export interface User {
 }
 
 export enum UserRating {
-    OBS = 1,
+    Inactive,
+    OBS,
     S1,
     S2,
     S3,
     C1,
-    C3 = 7,
+    C2,
+    C3,
     I1,
-    I3 = 10,
+    I2,
+    I3,
     SUP,
     ADM
-}
-
-export enum UserRole {
-    ATM,
-    DATM,
-    TA,
-    ATA,
-    WM,
-    AWM,
-    EC,
-    AEC,
-    FE,
-    AFE,
-    None
-}
-
-export enum TrainingRole {
-    INS,
-    MTR,
-    None
 }
 
 export enum UserStatus {

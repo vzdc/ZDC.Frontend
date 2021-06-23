@@ -2,7 +2,9 @@ import { User } from "./User";
 
 export interface TrainingTicket {
     id: number;
+    studentId: number;
     student: User;
+    trainerId: number;
     trainer: User;
     position: TrainingTicketPosition;
     facility: TrainingTicketFacility;

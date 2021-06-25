@@ -58,7 +58,7 @@ export default function Roster(): ReactElement {
 						</Popover>
 					}
 				>
-					<span className="badge roster-user bg-warning">Washington Center</span>
+					<span className="badge roster-user bg-danger">Washington Center</span>
 				</OverlayTrigger>
 			);
 		case Center.Certified:
@@ -90,7 +90,7 @@ export default function Roster(): ReactElement {
 						</Popover>
 					}
 				>
-					<span className="badge roster-user bg-warning">{ name }</span>
+					<span className="badge roster-user bg-danger">{ name }</span>
 				</OverlayTrigger>
 			);
 		case Tracon.Certified:
@@ -122,7 +122,7 @@ export default function Roster(): ReactElement {
 						</Popover>
 					}
 				>
-					<span className="badge roster-user bg-warning">{ name }</span>
+					<span className="badge roster-user bg-danger">{ name }</span>
 				</OverlayTrigger>
 			);
 		case Local.Minor:
@@ -135,7 +135,7 @@ export default function Roster(): ReactElement {
 						</Popover>
 					}
 				>
-					<span className="badge roster-user bg-secondary">{ name }</span>
+					<span className="badge roster-user bg-primary-desat">{ name }</span>
 				</OverlayTrigger>
 			);
 		case Local.Certified:
@@ -162,7 +162,7 @@ export default function Roster(): ReactElement {
 				<td>
 					{
 						isStaff() || isTrainingStaff() ? 
-							<Link to="/home"><b>{ user.fullName } ({ user.initials })</b></Link> :
+							<Link to={"/user/" + user.id}><b>{ user.fullName } ({ user.initials })</b></Link> :
 							<b>{ user.fullName } ({ user.initials })</b>
 					}
 					<br />
@@ -188,13 +188,13 @@ export default function Roster(): ReactElement {
 							)) :
 							<></>
 					}
-					<CenterCert type={user.certifications.center} />
-					<TraconCert name="Mount Vernon" type={user.certifications.mountVernon} />
-					<TraconCert name="Shenandoah" type={user.certifications.shenandoah} />
-					<TraconCert name="Chesapeake" type={user.certifications.chesapeake} />
-					<TraconCert name="Minor Approach" type={user.certifications.minorApproach} />
-					<LocalCert name="Tower" type={user.certifications.tower} />
 					<LocalCert name="Ground" type={user.certifications.ground} />
+					<LocalCert name="Tower" type={user.certifications.tower} />
+					<TraconCert name="Minor Approach" type={user.certifications.minorApproach} />
+					<TraconCert name="Chesapeake" type={user.certifications.chesapeake} />
+					<TraconCert name="Shenandoah" type={user.certifications.shenandoah} />
+					<TraconCert name="Mount Vernon" type={user.certifications.mountVernon} />
+					<CenterCert type={user.certifications.center} />
 				</td>
 			</tr>
 		);

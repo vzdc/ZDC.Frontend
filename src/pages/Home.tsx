@@ -1,7 +1,10 @@
 /* eslint-disable react/prop-types */
 
 import React, { ReactElement, useEffect, useState } from "react";
-import { Col, Row, Card, Table } from "react-bootstrap";
+import { Col, Row, Card, Table, Modal } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import { format, parseISO } from "date-fns";
+import parse from "html-react-parser";
 import instance from "../helpers/axios";
 import { OnlineController } from "../models/OnlineController";
 import { Event } from "../models/Event";
@@ -10,23 +13,23 @@ import { Airport } from "../models/Airport";
 import { Overflight } from "../models/Overflight";
 
 interface OnlineControllerProps {
-    controllers: OnlineController[];
+	controllers: OnlineController[];
 }
 
 interface EventProps {
-    events: Event[];
+	events: Event[];
 }
 
 interface AnnouncementProps {
-    announcements: Announcement[];
+	announcements: Announcement[];
 }
 
 interface AirportProps {
-    airports: Airport[];
+	airports: Airport[];
 }
 
 interface OverflightProps {
-    overflights: Overflight[];
+	overflights: Overflight[];
 }
 
 export default function Home(): ReactElement {
@@ -35,6 +38,11 @@ export default function Home(): ReactElement {
 	const [announcements, setAnnouncements] = useState<Announcement[]>([]);
 	const [airports, setAirports] = useState<Airport[]>([]);
 	const [overflights, setOverflights] = useState<Overflight[]>([]);
+	const [showAnnouncement, setShowAnnouncement] = useState(false);
+	const [currentAnnouncement, setCurrentAnnouncement] = useState<any>({});
+
+	const handleClose = () => setShowAnnouncement(false);
+	const handleShow = () => setShowAnnouncement(true);
 
 	useEffect(() => {
 		document.title = "Washington ARTCC - Home";
@@ -42,13 +50,11 @@ export default function Home(): ReactElement {
 			.then(response => {
 				setOnlineControllers(response.data);
 			});
-		
 		instance.get<Event[]>("/Events")
 			.then(response => {
 				setEvents(response.data);
 			});
-
-		instance.get<Announcement[]>("/Announcements?full=true")
+		instance.get<Announcement[]>("/Announcements")
 			.then(response => {
 				setAnnouncements(response.data);
 			});
@@ -64,9 +70,9 @@ export default function Home(): ReactElement {
 
 	const OnlineControllers: React.FC<OnlineControllerProps> = ({ controllers }) => {
 		return (
-			<Table responsive borderless>
+			<Table responsive striped>
 				<thead>
-					<tr className="border-bottom border-dark">
+					<tr>
 						<th scope="col" className="text-center">Callsign</th>
 						<th scope="col" className="text-center">Frequency</th>
 						<th scope="col" className="text-center">Name</th>
@@ -78,10 +84,10 @@ export default function Home(): ReactElement {
 						controllers.length > 0 ?
 							controllers?.map(controller => (
 								<tr key={controller.id}>
-									<td className="text-center">{ controller.position }</td>
-									<td className="text-center">{ controller.frequency }</td>
-									<td className="text-center">{ controller.name }</td>
-									<td className="text-center">{ controller.online }</td>
+									<td className="text-center">{controller.position}</td>
+									<td className="text-center">{controller.frequency}</td>
+									<td className="text-center">{controller.name}</td>
+									<td className="text-center">{controller.online}</td>
 								</tr>
 							)) :
 							<tr>
@@ -95,14 +101,16 @@ export default function Home(): ReactElement {
 
 	const Events: React.FC<EventProps> = ({ events }) => {
 		return (
-			<Table responsive borderless>
+			<Table responsive striped>
 				<tbody>
 					{
 						events.length > 0 ?
 							events?.filter(x => x.open)?.map(event => (
 								<tr key={event.id}>
-									<td>
-										<img className="img-fluid" src={event.banner} />
+									<td className="text-center">
+										<Link to={"/events/" + event.id}>
+											<img className="img-fluid" src={event.banner} />
+										</Link>
 									</td>
 								</tr>
 							)) :
@@ -117,13 +125,21 @@ export default function Home(): ReactElement {
 
 	const Announcements: React.FC<AnnouncementProps> = ({ announcements }) => {
 		return (
-			<Table responsive borderless>
+			<Table responsive striped>
 				<tbody>
 					{
 						announcements.length > 0 ?
 							announcements?.map(announcement => (
 								<tr key={announcement.id}>
-									<td>{announcement.title}</td>
+									<td className="announcement">
+										<Link to="" onClick={() => {
+											setShowAnnouncement(true);
+											setCurrentAnnouncement(announcement);
+										}}>
+											<span className="font-lg">{announcement.title}{announcement.submitter != null ? " - " + announcement.submitter.fullName : ""}</span>
+										</Link>
+										<span className="badge announcement-badge bg-primary">{format(parseISO(announcement.created.toString()), "MM-dd-yyyy")}</span>
+									</td>
 								</tr>
 							)) :
 							<tr>
@@ -137,9 +153,9 @@ export default function Home(): ReactElement {
 
 	const Weather: React.FC<AirportProps> = ({ airports }) => {
 		return (
-			<Table responsive borderless>
+			<Table responsive striped>
 				<thead>
-					<tr className="border-bottom border-dark">
+					<tr>
 						<th scope="col" className="text-center">ICAO</th>
 						<th scope="col" className="text-center">Conditions</th>
 						<th scope="col" className="text-center">Winds</th>
@@ -170,9 +186,9 @@ export default function Home(): ReactElement {
 
 	const Overflights: React.FC<OverflightProps> = ({ overflights }) => {
 		return (
-			<Table responsive borderless>
+			<Table responsive striped>
 				<thead>
-					<tr className="border-bottom border-dark">
+					<tr>
 						<th scope="col" className="text-center">Callsign</th>
 						<th scope="col" className="text-center">Departure</th>
 						<th scope="col" className="text-center">Arrival</th>
@@ -189,7 +205,6 @@ export default function Home(): ReactElement {
 									<td className="text-center">{overflight.arrival}</td>
 									<td className="text-center">{overflight.route.length > 32 ? overflight.route.substring(0, 32) + "..." : overflight.route}</td>
 								</tr>
-								
 							)) :
 							<tr>
 								<td colSpan={4} className="text-center">No Overflights Found</td>
@@ -271,6 +286,25 @@ export default function Home(): ReactElement {
 					</Col>
 				</Row>
 			</div>
+
+			<Modal
+				size="lg"
+				aria-labelledby="contained-modal-title-vcenter"
+				centered
+				show={showAnnouncement}
+				onHide={() => setShowAnnouncement(false)}
+			>
+				<Modal.Header closeButton>
+					<Modal.Title id="contained-modal-title-vcenter">
+						{currentAnnouncement.title}
+					</Modal.Title>
+				</Modal.Header>
+				<Modal.Body>
+					<p>
+						{currentAnnouncement.text ? parse(currentAnnouncement.text) : ""}
+					</p>
+				</Modal.Body>
+			</Modal>
 		</>
 	);
 }

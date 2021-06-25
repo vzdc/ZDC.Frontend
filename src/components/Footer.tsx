@@ -34,12 +34,12 @@ export default function Footer(): ReactElement {
 				{
 					isAuthenticated() ?
 						<Col sm className="text-center">
-							<a className="text-white" href="/bugreport">Bug Report</a>
+							<a className="footer-link" href="/bugreport">Bug Report</a>
 						</Col> :
 						<></>
 				}
 				<Col sm className="text-center">
-					<a className="text-white" href="/privacy">Privacy Policy</a>
+					<a className="footer-link" href="/privacy">Privacy Policy</a>
 				</Col>
 				<Col sm={5}></Col>
 			</Row>

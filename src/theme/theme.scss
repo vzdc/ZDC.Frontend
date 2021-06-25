@@ -160,6 +160,31 @@ a {
 .navbar .dropdown-menu .dropdown-item {
     padding: 0.5rem !important;
     font-weight: 600 !important;
+} 
+
+// Home
+
+.announcement {
+    display: flex; 
+    justify-content: space-between;
+    .announcement-badge {
+        margin-left: 0.2rem;
+        padding: 0.25rem;
+        font-size: 0.8rem;
+        display: flex;
+        justify-content: right;
+    }
+}
+
+// Footer
+.footer-link {
+    color: $white !important;
+
+    :hover {
+        color: $white !important;
+        text-decoration: underline !important;
+        text-decoration-color: $white !important;
+    }
 }
 
 // Cards

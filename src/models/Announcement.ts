@@ -3,8 +3,8 @@ import { User } from "./User";
 
 export interface Announcement {
     id: number;
-    sumitterId: number;
-    sumbitter: User;
+    submitterId: number;
+    submitter: User;
     title: string;
     text: string;
     created: Date;

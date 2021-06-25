@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react/prop-types */
 
 import React, { ReactElement, useEffect, useState } from "react";
@@ -14,23 +13,23 @@ interface StaffMemberProps {
 
 export default function Staff(): ReactElement {
 
-	const [staff, setStaff] = useState<User[]>([]);
-	// const atm = staff.find(x => x.role == UserRole.ATM);
-	// const datm = staff.find(x => x.role == UserRole.DATM);
-	// const ta = staff.find(x => x.role == UserRole.TA);
-	// const wm = staff.find(x => x.role == UserRole.WM);
-	// const ec = staff.find(x => x.role == UserRole.EC);
-	// const fe = staff.find(x => x.role == UserRole.FE);
-	// const ata = staff.find(x => x.role == UserRole.ATA);
-	// const awm = staff.find(x => x.role == UserRole.AWM);
-	// const aec = staff.find(x => x.role == UserRole.AEC);
-	// const afe = staff.find(x => x.role == UserRole.AFE);
+	const [users, setUsers] = useState<User[]>([]);
+	const atm = users.find(x => x.roles.find(x => x.name == "ATM"));
+	const datm = users.find(x => x.roles.find(x => x.name == "DATM"));
+	const ta = users.find(x => x.roles.find(x => x.name == "TA"));
+	const wm = users.find(x => x.roles.find(x => x.name == "WM"));
+	const ec = users.find(x => x.roles.find(x => x.name == "EC"));
+	const fe = users.find(x => x.roles.find(x => x.name == "FE"));
+	const ata = users.find(x => x.roles.find(x => x.name == "ATA"));
+	const awm = users.find(x => x.roles.find(x => x.name == "AWM"));
+	const aec = users.find(x => x.roles.find(x => x.name == "AEC"));
+	const afe = users.find(x => x.roles.find(x => x.name == "AFE"));
 
 	useEffect(() => {
 		document.title = "Washington ARTCC - Staff";
-		instance.get<User[]>("/Users/Staff")
+		instance.get<User[]>("/Users")
 			.then(response => {
-				setStaff(response.data);
+				setUsers(response.data);
 			});
 	}, []);
 
@@ -55,7 +54,7 @@ export default function Staff(): ReactElement {
 					<i className="fas fa-users-cog"></i> Staff
 				</Card.Header>
 			</Card>
-			{/* <Row>
+			<Row>
 				<Col sm className="mx-auto">
 					<StaffMember user={atm} position="Air Traffic Manager" positionShort="atm" />
 				</Col>
@@ -80,33 +79,33 @@ export default function Staff(): ReactElement {
 			<Row>
 				{
 					ata != undefined ?
-						<Col sm className="mx-auto">
+						<Col sm={4} className="mx-auto">
 							<StaffMember user={ata} position="Assistant Training Administrator" positionShort="ata" />
 						</Col> :
 						<></>
 				}
 				{
 					awm != undefined ?
-						<Col sm className="mx-auto">
+						<Col sm={4} className="mx-auto">
 							<StaffMember user={awm} position="Assistant Webmaster" positionShort="awm" />
 						</Col> :
 						<></>
 				}
 				{
 					aec != undefined ?
-						<Col sm className="mx-auto">
+						<Col sm={4} className="mx-auto">
 							<StaffMember user={aec} position="Assistant Events Coordinator" positionShort="aec" />
 						</Col> :
 						<></>
 				}
 				{
 					afe != undefined ?
-						<Col sm className="mx-auto">
+						<Col sm={4} className="mx-auto">
 							<StaffMember user={afe} position="Assistant Facility Engineer" positionShort="afe" />
 						</Col> :
 						<></>
 				}
-			</Row> */}
+			</Row>
 		</Container>
 	);
 }

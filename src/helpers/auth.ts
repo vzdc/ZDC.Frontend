@@ -19,14 +19,17 @@ class Token {
 
 
 enum UserRating {
-    OBS = 1,
+	Inactive,
+    OBS,
     S1,
     S2,
     S3,
     C1,
-    C3 = 7,
+	C2,
+    C3,
     I1,
-    I3 = 10,
+	I2,
+    I3,
     SUP,
     ADM
 }
@@ -42,6 +45,15 @@ const staffRoles: string[] = [
 	"AWM",
 	"AEC",
 	"AFE"
+];
+
+const fullStaffRoles: string[] = [
+	"ATM",
+	"DATM",
+	"TA",
+	"WM",
+	"EC",
+	"FE"
 ];
 
 const trainingRoles: string[] = [
@@ -69,11 +81,15 @@ export function parseJWT(): Token | null {
 
 export function isAuthenticated(): boolean {
 	const jwt = parseJWT();
+	if (jwt == null)
+		return false;
 	return jwt != null;
 }
 
 export function isMember(): boolean {
 	const jwt = parseJWT() as Token;
+	if (jwt == null)
+		return false;
 	return jwt.isMember;
 }
 
@@ -98,40 +114,80 @@ export function isStaff(): boolean {
 	return staffRoles.some(x => jwt.roles.indexOf(x) !== -1);
 }
 
+export function isFullStaff(): boolean {
+	const jwt = parseJWT() as Token;
+	if (jwt == null || jwt.roles == null)
+		return false;
+	return fullStaffRoles.some(x => jwt.roles.indexOf(x) !== -1);
+}
+
 export function isSeniorStaff(): boolean {
 	const jwt = parseJWT() as Token;
 	if (jwt == null || jwt.roles == null)
 		return false;
-	return ["ATM", "DATM", "TA","ATA"].some(x => jwt.roles.indexOf(x) !== -1);
+	return ["ATM", "DATM", "TA", "ATA", "WM"].some(x => jwt.roles.indexOf(x) !== -1);
+}
+
+export function canTraining(): boolean {
+	const jwt = parseJWT() as Token;
+	if (jwt == null || jwt.roles == null)
+		return false;
+	return ["ATM", "DATM", "TA", "ATA", "WM", "INS"].some(x => jwt.roles.indexOf(x) !== -1);
+}
+
+export function canFacilities(): boolean {
+	const jwt = parseJWT() as Token;
+	if (jwt == null || jwt.roles == null)
+		return false;
+	return ["ATM", "DATM", "TA", "ATA", "WM", "FE", "AFE"].some(x => jwt.roles.indexOf(x) !== -1);
+}
+
+export function canEvents(): boolean {
+	const jwt = parseJWT() as Token;
+	if (jwt == null || jwt.roles == null)
+		return false;
+	return ["ATM", "DATM", "TA", "ATA", "WM", "EC", "AEC"].some(x => jwt.roles.indexOf(x) !== -1);
 }
 
 export function getCid(): number {
 	const jwt = parseJWT() as Token;
+	if (jwt == null)
+		return Number.MIN_SAFE_INTEGER;
 	return jwt.cid;
 }
 
 export function getFirstName(): string {
 	const jwt = parseJWT() as Token;
+	if (jwt == null)
+		return "";
 	return jwt.firstName;
 }
 
 export function getLastName(): string {
 	const jwt = parseJWT() as Token;
+	if (jwt == null)
+		return "";
 	return jwt.lastName;
 }
 
 export function getFullName(): string {
 	const jwt = parseJWT() as Token;
+	if (jwt == null)
+		return "";
 	return `${jwt.firstName} ${jwt.lastName}`;
 }
 
 export function getReverseNameCid(): string {
 	const jwt = parseJWT() as Token;
+	if (jwt == null)
+		return "";
 	return `${jwt.lastName}, ${jwt.firstName} - ${jwt.cid}`;
 }
 
 export function getUserRating(): UserRating {
 	const jwt = parseJWT() as Token;
+	if (jwt == null)
+		return UserRating.Inactive;
 	return jwt.rating;
 }
 

@@ -61,13 +61,21 @@ export default function Statistics(): ReactElement {
 							<td>{stats.hours.localHoursString}</td>
 							<td>{stats.hours.traconHoursString}</td>
 							<td>{stats.hours.centerHoursString}</td>
-							<td>{stats.hours.totalHoursString}</td>
+							{
+								stats.hours.totalHours >= 2 ?
+									<td>
+										<i className="text-success fas fa-check"></i> {stats.hours.totalHoursString}
+									</td> :
+									<td>
+										<i className="text-danger fas fa-times"></i> {stats.hours.totalHoursString}
+									</td>
+							}
 						</> :
 						<>
-							<td>0</td>
-							<td>0</td>
-							<td>0</td>
-							<td>0</td>
+							<td>0m</td>
+							<td>0m</td>
+							<td>0m</td>
+							<td><i className="text-danger fas fa-times"></i> 0m</td>
 						</>
 				}
 			</tr>

@@ -1,5 +1,5 @@
 import React, { ReactElement, useEffect, useState } from "react";
-import {  Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
+import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { Link, useLocation } from "react-router-dom";
 import logo from "../theme/img/logo.png";
 import { isAuthenticated, isMember, getFullName, isTrainingStaff, canFacilities, isFullStaff, canEvents, isSeniorStaff, canTraining } from "../helpers/auth";
@@ -21,7 +21,7 @@ export default function Navigation(): ReactElement {
 						<NavDropdown title="Controller Resources" id="controller-dropdown">
 							<NavDropdown.Item as={Link} to="/staff">Staff</NavDropdown.Item>
 							<NavDropdown.Item as={Link} to="/roster">Roster</NavDropdown.Item>
-							<NavDropdown.Item as={Link} to="/statistics">Statistics</NavDropdown.Item>
+							<NavDropdown.Item as={Link} to={"/statistics/" + new Date().getUTCMonth() + "/" + new Date().getUTCFullYear()}>Statistics</NavDropdown.Item>
 							<NavDropdown.Item as={Link} to="/files">Files</NavDropdown.Item>
 							<NavDropdown.Item as={Link} to="/events">Events</NavDropdown.Item>
 							{
@@ -36,7 +36,7 @@ export default function Navigation(): ReactElement {
 							<NavDropdown.Item as={Link} to="/Feedback">Feedback</NavDropdown.Item>
 						</NavDropdown>
 						{
-							isMember() ? 
+							isMember() ?
 								<NavDropdown title="Training Management" id="training-dropdown">
 									{
 										isTrainingStaff() ?
@@ -57,7 +57,7 @@ export default function Navigation(): ReactElement {
 								<></>
 						}
 						{
-							isMember() ? 
+							isMember() ?
 								<NavDropdown title="ARTCC Management" id="training-dropdown">
 									{
 										isFullStaff() ?
@@ -103,7 +103,7 @@ export default function Navigation(): ReactElement {
 								<></>
 						}
 						{
-							isAuthenticated() ? 
+							isAuthenticated() ?
 								<NavDropdown title={getFullName()} id="user-dropdown">
 									{
 										isMember() ? <></> :

@@ -39,10 +39,8 @@ export default function Home(): ReactElement {
 	const [airports, setAirports] = useState<Airport[]>([]);
 	const [overflights, setOverflights] = useState<Overflight[]>([]);
 	const [showAnnouncement, setShowAnnouncement] = useState(false);
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const [currentAnnouncement, setCurrentAnnouncement] = useState<any>({});
-
-	const handleClose = () => setShowAnnouncement(false);
-	const handleShow = () => setShowAnnouncement(true);
 
 	useEffect(() => {
 		document.title = "Washington ARTCC - Home";
@@ -138,7 +136,9 @@ export default function Home(): ReactElement {
 										}}>
 											<span className="font-lg">{announcement.title}{announcement.submitter != null ? " - " + announcement.submitter.fullName : ""}</span>
 										</Link>
-										<span className="badge announcement-badge bg-primary">{format(parseISO(announcement.created.toString()), "MM-dd-yyyy")}</span>
+										<span className="badge announcement-badge bg-gray-800 text-white">
+											{format(parseISO(announcement.created.toString()), "MM-dd-yyyy")}
+										</span>
 									</td>
 								</tr>
 							)) :
@@ -294,7 +294,7 @@ export default function Home(): ReactElement {
 				show={showAnnouncement}
 				onHide={() => setShowAnnouncement(false)}
 			>
-				<Modal.Header closeButton>
+				<Modal.Header>
 					<Modal.Title id="contained-modal-title-vcenter">
 						{currentAnnouncement.title}
 					</Modal.Title>

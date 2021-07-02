@@ -1,14 +1,20 @@
 /* eslint-disable react/prop-types */
 
 import React, { ReactElement, useEffect, useState } from "react";
-import { Card, Col, Container, Row } from "react-bootstrap";
+import { Card, Col, Container, ListGroup, Row } from "react-bootstrap";
 import instance from "../helpers/axios";
 import { User } from "../models/User";
 
 interface StaffMemberProps {
-    user: User | undefined;
+	user: User | undefined;
 	position: string;
 	positionShort: string;
+}
+
+interface TrainingStaffProps {
+	users: User[];
+	type: string;
+	email: string;
 }
 
 export default function Staff(): ReactElement {
@@ -24,6 +30,8 @@ export default function Staff(): ReactElement {
 	const awm = users.find(x => x.roles.find(x => x.name == "AWM"));
 	const aec = users.find(x => x.roles.find(x => x.name == "AEC"));
 	const afe = users.find(x => x.roles.find(x => x.name == "AFE"));
+	const ins = users.filter(x => x.roles.find(x => x.name == "INS"));
+	const mtr = users.filter(x => x.roles.find(x => x.name == "MTR"));
 
 	useEffect(() => {
 		document.title = "Washington ARTCC - Staff";
@@ -37,13 +45,37 @@ export default function Staff(): ReactElement {
 		return (
 			<Card className="shadow-lg">
 				<Card.Header as="h5" className="text-center">
-					{ position }
+					{position}
 					<hr />
-					{ user != undefined ? user.fullName : "Vacant" }
+					{user != undefined ? user.fullName : "Vacant"}
 					<br />
-					<a href="mailto::atm@vzdc.org" target="_blank" rel="noreferrer"><i className="fas fa-envelope"></i> { positionShort }@vzdc.org</a>
+					<a href="mailto::atm@vzdc.org" target="_blank" rel="noreferrer"><i className="fas fa-envelope"></i> {positionShort}@vzdc.org</a>
 				</Card.Header>
 			</Card>
+		);
+	};
+
+	const TrainingStaff: React.FC<TrainingStaffProps> = ({ users, type, email }) => {
+		return (
+			<Card className="shadow-lg training-staff-height">
+				<Card.Header as="h5" className="text-center">
+					{type}
+					<br />
+					<a href={"mailto::" + email} target="_blank" rel="noreferrer"><i className="fas fa-envelope"></i> {email}</a>
+					<hr />
+				</Card.Header>
+				<Card.Body>
+					<ListGroup>
+						{
+							users == undefined || users.length > 0 ?
+								users.map(user => (
+									<ListGroup key={user.id}>{user.fullName}</ListGroup>
+								)) :
+								<ListGroup.Item>No {type} found</ListGroup.Item>
+						}
+					</ListGroup>
+				</Card.Body>
+			</Card >
 		);
 	};
 
@@ -105,6 +137,20 @@ export default function Staff(): ReactElement {
 						</Col> :
 						<></>
 				}
+			</Row>
+			<Card className="shadow-lg">
+				<Card.Header as="h5" className="text-center">
+					<i className="fas fa-users-cog"></i> Training Staff
+				</Card.Header>
+			</Card>
+			<Row>
+				<Col sm={4}>
+					<TrainingStaff users={ins} type="Instructors" email="instructors@vzdc.org" />
+				</Col>
+				<Col sm={4}></Col>
+				<Col sm={4}>
+					<TrainingStaff users={mtr} type="Mentors" email="mentors@vzdc.org" />
+				</Col>
 			</Row>
 		</Container>
 	);

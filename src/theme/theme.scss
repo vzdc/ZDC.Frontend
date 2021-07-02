@@ -204,6 +204,10 @@ a {
     min-height: 40px;
 }
 
+.training-staff-height {
+    min-height: 20rem !important;
+}
+
 // Roster
 .roster-user {
     margin: 0.2rem;
@@ -238,4 +242,10 @@ td > a {
         text-decoration: underline;
         text-decoration-color: $black;
     }
+} 
+
+// Statistics
+.center {
+    margin: auto;
+    width: 0%;
 }

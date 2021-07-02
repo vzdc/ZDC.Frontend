@@ -21,7 +21,7 @@ export default function Navigation(): ReactElement {
 						<NavDropdown title="Controller Resources" id="controller-dropdown">
 							<NavDropdown.Item as={Link} to="/staff">Staff</NavDropdown.Item>
 							<NavDropdown.Item as={Link} to="/roster">Roster</NavDropdown.Item>
-							<NavDropdown.Item as={Link} to={"/statistics/" + new Date().getUTCMonth() + "/" + new Date().getUTCFullYear()}>Statistics</NavDropdown.Item>
+							<NavDropdown.Item as={Link} to={"/statistics/" + (new Date().getUTCMonth() + 1) + "/" + new Date().getUTCFullYear()}>Statistics</NavDropdown.Item>
 							<NavDropdown.Item as={Link} to="/files">Files</NavDropdown.Item>
 							<NavDropdown.Item as={Link} to="/events">Events</NavDropdown.Item>
 							{

@@ -4,7 +4,7 @@ export interface Event {
     id: number;
     title: string;
     text: string;
-    banner: string;
+    url: string;
     host: string;
     start: Date;
     end: Date;

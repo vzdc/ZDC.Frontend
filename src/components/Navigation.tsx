@@ -2,7 +2,7 @@ import React, { ReactElement, useEffect, useState } from "react";
 import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { Link, useLocation } from "react-router-dom";
 import logo from "../theme/img/logo.png";
-import { isAuthenticated, isMember, getFullName, isTrainingStaff, canFacilities, isFullStaff, canEvents, isSeniorStaff, canTraining } from "../helpers/auth";
+import { isAuthenticated, isMember, getFullName, isTrainingStaff, canFacilities, isFullStaff, canEvents, isSeniorStaff, canTraining, canManageTraining } from "../helpers/auth";
 
 export default function Navigation(): ReactElement {
 	const [scroll, setScroll] = useState(true);
@@ -26,7 +26,10 @@ export default function Navigation(): ReactElement {
 							<NavDropdown.Item as={Link} to="/events">Events</NavDropdown.Item>
 							{
 								isMember() ?
-									<NavDropdown.Item as={Link} to="/scheduletraining">Schedule Training</NavDropdown.Item> :
+									<a id="Setmore_button_iframe" href="https://my.setmore.com/bookingpage/acfb9e67-05a7-4f0e-aaee-feb54a13a41e"
+										className="dropdown-item" style={{ float: "none" }}>
+										Schedule Training
+									</a> :
 									<></>
 							}
 						</NavDropdown>
@@ -51,6 +54,11 @@ export default function Navigation(): ReactElement {
 									{
 										canTraining() ?
 											<NavDropdown.Item as={Link} to="/feedback/manage">Feedback</NavDropdown.Item> :
+											<></>
+									}
+									{
+										canManageTraining() ?
+											<NavDropdown.Item as={Link} to="/trainingstaff">Staff Management</NavDropdown.Item> :
 											<></>
 									}
 								</NavDropdown> :
@@ -82,6 +90,16 @@ export default function Navigation(): ReactElement {
 									{
 										isSeniorStaff() ?
 											<NavDropdown.Item as={Link} to="/loas/manage">LOA Center</NavDropdown.Item> :
+											<></>
+									}
+									{
+										isSeniorStaff() ?
+											<NavDropdown.Item as={Link} to="/visitrequest/manage">Visit Requests</NavDropdown.Item> :
+											<></>
+									}
+									{
+										isSeniorStaff() ?
+											<NavDropdown.Item as={Link} to="/roster/manage">Roster Management</NavDropdown.Item> :
 											<></>
 									}
 									{

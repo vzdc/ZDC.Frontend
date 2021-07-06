@@ -1,37 +1,37 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
 class Token {
-    cid: number;
-    firstName: string;
-    lastName: string;
-    rating: UserRating;
-    isMember: boolean;
-    roles: string[];
+	cid: number;
+	firstName: string;
+	lastName: string;
+	rating: UserRating;
+	isMember: boolean;
+	roles: string[];
 
-    constructor(cid: number, firstName: string, lastName: string, rating: UserRating, isMember: boolean, roles: string[]) {
-    	this.cid = cid;
-    	this.firstName = firstName;
-    	this.lastName = lastName;
-    	this.rating = rating;
-    	this.isMember = isMember;
-    	this.roles = roles;
-    }
+	constructor(cid: number, firstName: string, lastName: string, rating: UserRating, isMember: boolean, roles: string[]) {
+		this.cid = cid;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.rating = rating;
+		this.isMember = isMember;
+		this.roles = roles;
+	}
 }
 
 
 enum UserRating {
 	Inactive,
-    OBS,
-    S1,
-    S2,
-    S3,
-    C1,
+	OBS,
+	S1,
+	S2,
+	S3,
+	C1,
 	C2,
-    C3,
-    I1,
+	C3,
+	I1,
 	I2,
-    I3,
-    SUP,
-    ADM
+	I3,
+	SUP,
+	ADM
 }
 
 const staffRoles: string[] = [
@@ -64,10 +64,10 @@ const trainingRoles: string[] = [
 
 export function getAuthURL(): string {
 	return "https://auth.vatsim.net/oauth/authorize" +
-        "?client_id=" + process.env.REACT_APP_VATSIM_CONNECT_CLIENT_ID +
-        "&redirect_uri=" + process.env.REACT_APP_VATSIM_CONNECT_REDIRECT_URI +
-        "&response_type=code&scope=full_name+vatsim_details+email" +
-        "&required_scopes=full_name+vatsim_details+email";
+		"?client_id=" + process.env.REACT_APP_VATSIM_CONNECT_CLIENT_ID +
+		"&redirect_uri=" + process.env.REACT_APP_VATSIM_CONNECT_REDIRECT_URI +
+		"&response_type=code&scope=full_name+vatsim_details+email" +
+		"&required_scopes=full_name+vatsim_details+email";
 }
 
 export function parseJWT(): Token | null {
@@ -133,6 +133,13 @@ export function canTraining(): boolean {
 	if (jwt == null || jwt.roles == null)
 		return false;
 	return ["ATM", "DATM", "TA", "ATA", "WM", "INS"].some(x => jwt.roles.indexOf(x) !== -1);
+}
+
+export function canManageTraining(): boolean {
+	const jwt = parseJWT() as Token;
+	if (jwt == null || jwt.roles == null)
+		return false;
+	return ["ATM", "DATM", "TA", "ATA", "WM"].some(x => jwt.roles.indexOf(x) !== -1);
 }
 
 export function canFacilities(): boolean {

@@ -19,6 +19,7 @@
     "bootstrap": "^5.0.1",
     "date-fns": "^2.22.1",
     "date-fns-tz": "^1.1.4",
+    "formik": "^2.2.9",
     "html-react-parser": "^1.2.7",
     "node-sass": "^5.0.0",
     "notistack": "^1.0.8",

@@ -11,6 +11,7 @@ import { Event } from "../models/Event";
 import { Announcement } from "../models/Announcement";
 import { Airport } from "../models/Airport";
 import { Overflight } from "../models/Overflight";
+import BounceLoader from "../components/BounceLoader";
 
 interface OnlineControllerProps {
 	controllers: OnlineController[];
@@ -33,6 +34,11 @@ interface OverflightProps {
 }
 
 export default function Home(): ReactElement {
+	const [loadingControllers, setLoadingControllers] = useState(true);
+	const [loadingEvents, setLoadingEvents] = useState(true);
+	const [loadingAnnouncements, setLoadingAnnouncements] = useState(true);
+	const [loadingAirports, setLoadingAirports] = useState(true);
+	const [loadingOverflights, setLoadingOverflights] = useState(true);
 	const [onlineControllers, setOnlineControllers] = useState<OnlineController[]>([]);
 	const [events, setEvents] = useState<Event[]>([]);
 	const [announcements, setAnnouncements] = useState<Announcement[]>([]);
@@ -47,22 +53,27 @@ export default function Home(): ReactElement {
 		instance.get<OnlineController[]>("/OnlineControllers")
 			.then(response => {
 				setOnlineControllers(response.data);
+				setLoadingControllers(false);
 			});
 		instance.get<Event[]>("/Events")
 			.then(response => {
 				setEvents(response.data);
+				setLoadingEvents(false);
 			});
 		instance.get<Announcement[]>("/Announcements")
 			.then(response => {
 				setAnnouncements(response.data);
+				setLoadingAnnouncements(false);
 			});
 		instance.get<Airport[]>("/Airports")
 			.then(response => {
 				setAirports(response.data);
+				setLoadingAirports(false);
 			});
 		instance.get<Overflight[]>("/Overflights")
 			.then(response => {
 				setOverflights(response.data);
+				setLoadingOverflights(false);
 			});
 	}, []);
 
@@ -79,18 +90,26 @@ export default function Home(): ReactElement {
 				</thead>
 				<tbody>
 					{
-						controllers.length > 0 ?
-							controllers?.map(controller => (
-								<tr key={controller.id}>
-									<td className="text-center">{controller.position}</td>
-									<td className="text-center">{controller.frequency}</td>
-									<td className="text-center">{controller.name}</td>
-									<td className="text-center">{controller.online}</td>
-								</tr>
-							)) :
+						loadingControllers ?
 							<tr>
-								<td colSpan={4} className="text-center">No Controllers Online</td>
-							</tr>
+								<td className="center-home" colSpan={4}>
+									<div className="center-home">
+										<BounceLoader />
+									</div>
+								</td>
+							</tr> :
+							controllers.length > 0 ?
+								controllers?.map(controller => (
+									<tr key={controller.id}>
+										<td className="text-center">{controller.position}</td>
+										<td className="text-center">{controller.frequency}</td>
+										<td className="text-center">{controller.name}</td>
+										<td className="text-center">{controller.online}</td>
+									</tr>
+								)) :
+								<tr>
+									<td colSpan={4} className="text-center">No Controllers Online</td>
+								</tr>
 					}
 				</tbody>
 			</Table>
@@ -102,19 +121,23 @@ export default function Home(): ReactElement {
 			<Table responsive striped>
 				<tbody>
 					{
-						events.length > 0 ?
-							events?.filter(x => x.open)?.map(event => (
-								<tr key={event.id}>
-									<td className="text-center">
-										<Link to={"/events/" + event.id}>
-											<img className="img-fluid" src={event.banner} />
-										</Link>
-									</td>
+						loadingEvents ?
+							<div className="center-home">
+								<BounceLoader />
+							</div> :
+							events?.filter(x => x.start >= new Date()).length > 0 ?
+								events?.filter(x => x.start >= new Date())?.map(event => (
+									<tr key={event.id}>
+										<td className="text-center">
+											<Link to={"/event/" + event.id}>
+												<img className="img-fluid" src={event.url} />
+											</Link>
+										</td>
+									</tr>
+								)) :
+								<tr>
+									<td className="text-center">No Events Found</td>
 								</tr>
-							)) :
-							<tr>
-								<td className="text-center">No Events Found</td>
-							</tr>
 					}
 				</tbody>
 			</Table>
@@ -126,25 +149,29 @@ export default function Home(): ReactElement {
 			<Table responsive striped>
 				<tbody>
 					{
-						announcements.length > 0 ?
-							announcements?.map(announcement => (
-								<tr key={announcement.id}>
-									<td className="announcement">
-										<Link to="" onClick={() => {
-											setShowAnnouncement(true);
-											setCurrentAnnouncement(announcement);
-										}}>
-											<span className="font-lg">{announcement.title}{announcement.submitter != null ? " - " + announcement.submitter.fullName : ""}</span>
-										</Link>
-										<span className="badge announcement-badge bg-gray-800 text-white">
-											{format(parseISO(announcement.created.toString()), "MM-dd-yyyy")}
-										</span>
-									</td>
+						loadingAnnouncements ?
+							<div className="center-home">
+								<BounceLoader />
+							</div> :
+							announcements.length > 0 ?
+								announcements?.map(announcement => (
+									<tr key={announcement.id}>
+										<td className="announcement">
+											<Link to="" onClick={() => {
+												setShowAnnouncement(true);
+												setCurrentAnnouncement(announcement);
+											}}>
+												<span className="font-lg">{announcement.title}{announcement.submitter != null ? " - " + announcement.submitter.fullName : ""}</span>
+											</Link>
+											<span className="badge announcement-badge bg-gray-800 text-white">
+												{format(parseISO(announcement.created.toString()), "MM-dd-yyyy")}
+											</span>
+										</td>
+									</tr>
+								)) :
+								<tr>
+									<td className="text-center">No Announcements Found</td>
 								</tr>
-							)) :
-							<tr>
-								<td className="text-center">No Announcements Found</td>
-							</tr>
 					}
 				</tbody>
 			</Table>
@@ -165,19 +192,27 @@ export default function Home(): ReactElement {
 				</thead>
 				<tbody>
 					{
-						airports.length > 0 ?
-							airports?.map(airport => (
-								<tr key={airport.id}>
-									<td className="text-center">{airport.icao}</td>
-									<td className="text-center">{airport.conditions}</td>
-									<td className="text-center">{airport.wind}</td>
-									<td className="text-center">{airport.temp}</td>
-									<td className="text-center">{airport.altimeter}</td>
-								</tr>
-							)) :
+						loadingAirports ?
 							<tr>
-								<td colSpan={5} className="text-center">No Weather Found</td>
-							</tr>
+								<td className="center-home" colSpan={5}>
+									<div className="center-home">
+										<BounceLoader />
+									</div>
+								</td>
+							</tr> :
+							airports.length > 0 ?
+								airports?.map(airport => (
+									<tr key={airport.id}>
+										<td className="text-center">{airport.icao}</td>
+										<td className="text-center">{airport.conditions}</td>
+										<td className="text-center">{airport.wind}</td>
+										<td className="text-center">{airport.temp}</td>
+										<td className="text-center">{airport.altimeter}</td>
+									</tr>
+								)) :
+								<tr>
+									<td colSpan={5} className="text-center">No Weather Found</td>
+								</tr>
 					}
 				</tbody>
 			</Table>
@@ -197,18 +232,26 @@ export default function Home(): ReactElement {
 				</thead>
 				<tbody>
 					{
-						overflights.length > 0 ?
-							overflights?.filter(x => x.arrival && x.departure && x.route)?.map(overflight => (
-								<tr key={overflight.id}>
-									<td className="text-center">{overflight.callsign}</td>
-									<td className="text-center">{overflight.departure}</td>
-									<td className="text-center">{overflight.arrival}</td>
-									<td className="text-center">{overflight.route.length > 32 ? overflight.route.substring(0, 32) + "..." : overflight.route}</td>
-								</tr>
-							)) :
+						loadingOverflights ?
 							<tr>
-								<td colSpan={4} className="text-center">No Overflights Found</td>
-							</tr>
+								<td className="center-home" colSpan={4}>
+									<div className="center-home">
+										<BounceLoader />
+									</div>
+								</td>
+							</tr> :
+							overflights.length > 0 ?
+								overflights?.filter(x => x.arrival && x.departure && x.route)?.map(overflight => (
+									<tr key={overflight.id}>
+										<td className="text-center">{overflight.callsign}</td>
+										<td className="text-center">{overflight.departure}</td>
+										<td className="text-center">{overflight.arrival}</td>
+										<td className="text-center">{overflight.route.length > 32 ? overflight.route.substring(0, 32) + "..." : overflight.route}</td>
+									</tr>
+								)) :
+								<tr>
+									<td colSpan={4} className="text-center">No Overflights Found</td>
+								</tr>
 					}
 				</tbody>
 			</Table>
@@ -237,7 +280,7 @@ export default function Home(): ReactElement {
 							<Col>
 								<Card className="shadow-lg">
 									<Card.Header as="h5" className="text-center">
-										<i className="fas fa-calendar-alt"></i> Events
+										<i className="fas fa-calendar-alt"></i> Upcoming Events
 									</Card.Header>
 									<Card.Body>
 										<Events events={events} />

@@ -33,7 +33,6 @@ export default function Statistics(): ReactElement {
 	const previousMonth: number = month - 1;
 	const nextYear: number = year + 1;
 	const previousYear: number = year - 1;
-	const date: Date = new Date(year, month);
 	const monthNames = ["January", "February", "March", "April", "May", "June",
 		"July", "August", "September", "October", "November", "December"
 	];
@@ -88,21 +87,21 @@ export default function Statistics(): ReactElement {
 				<Card.Header as="h5" className="text-center">
 					<i className="fas fa-satellite-dish"></i> Statistics
 					<br />
-					{monthNames[date.getUTCMonth() - 1] + " " + year}
+					{monthNames[month - 1] + " " + year}
 					<hr />
 					<Row>
 						<Col sm>
 							{
 								month == 1 ?
-									<Link to={"/statistics/" + 12 + "/" + previousYear} className="btn btn-primary">Previous</Link> :
-									<Link to={"/statistics/" + previousMonth + "/" + year} className="btn btn-primary">Previous</Link>
+									<Link to={"/statistics/" + 12 + "/" + previousYear} className="btn bg-gray-800 text-light">Previous</Link> :
+									<Link to={"/statistics/" + previousMonth + "/" + year} className="btn bg-gray-800 text-light">Previous</Link>
 							}
 						</Col>
 						<Col sm>
 							{
 								month == 12 ?
-									<Link to={"/statistics/" + 1 + "/" + nextYear} className="btn btn-primary">Next</Link> :
-									<Link to={"/statistics/" + nextMonth + "/" + year} className="btn btn-primary">Next</Link>
+									<Link to={"/statistics/" + 1 + "/" + nextYear} className="btn bg-gray-800 text-light">Next</Link> :
+									<Link to={"/statistics/" + nextMonth + "/" + year} className="btn bg-gray-800 text-light">Next</Link>
 							}
 						</Col>
 					</Row>

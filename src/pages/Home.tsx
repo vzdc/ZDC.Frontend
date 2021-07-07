@@ -57,7 +57,7 @@ export default function Home(): ReactElement {
 			});
 		instance.get<Event[]>("/Events")
 			.then(response => {
-				setEvents(response.data);
+				setEvents(response.data.filter(x => new Date(x.start) >= new Date()));
 				setLoadingEvents(false);
 			});
 		instance.get<Announcement[]>("/Announcements")
@@ -125,8 +125,8 @@ export default function Home(): ReactElement {
 							<div className="center-home">
 								<BounceLoader />
 							</div> :
-							events?.filter(x => x.start >= new Date()).length > 0 ?
-								events?.filter(x => x.start >= new Date())?.map(event => (
+							events?.length > 0 ?
+								events?.map(event => (
 									<tr key={event.id}>
 										<td className="text-center">
 											<Link to={"/event/" + event.id}>

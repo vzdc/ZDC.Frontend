@@ -97,7 +97,7 @@ export function isTrainingStaff(): boolean {
 	const jwt = parseJWT() as Token;
 	if (jwt == null || jwt.roles == null)
 		return false;
-	return trainingRoles.some(x => jwt.roles.indexOf(x) !== -1);
+	return trainingRoles.some(x => jwt.roles.indexOf(x) !== -1) || isSeniorStaff();
 }
 
 export function isInstructor(): boolean {

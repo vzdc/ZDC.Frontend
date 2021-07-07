@@ -72,7 +72,7 @@ export default function Files(): ReactElement {
 												<FileEntry key={file.id} file={file} />
 											)) :
 											<tr>
-												<td colSpan={3} className="text-center">No files found</td>
+												<td colSpan={4} className="text-center">No files found</td>
 											</tr>
 									}
 								</tbody>
@@ -95,7 +95,7 @@ export default function Files(): ReactElement {
 												<FileEntry key={file.id} file={file} />
 											)) :
 											<tr>
-												<td colSpan={3} className="text-center">No files found</td>
+												<td colSpan={4} className="text-center">No files found</td>
 											</tr>
 									}
 								</tbody>
@@ -118,7 +118,7 @@ export default function Files(): ReactElement {
 												<FileEntry key={file.id} file={file} />
 											)) :
 											<tr>
-												<td colSpan={3} className="text-center">No files found</td>
+												<td colSpan={4} className="text-center">No files found</td>
 											</tr>
 									}
 								</tbody>
@@ -141,7 +141,7 @@ export default function Files(): ReactElement {
 												<FileEntry key={file.id} file={file} />
 											)) :
 											<tr>
-												<td colSpan={3} className="text-center">No files found</td>
+												<td colSpan={4} className="text-center">No files found</td>
 											</tr>
 									}
 								</tbody>
@@ -164,7 +164,7 @@ export default function Files(): ReactElement {
 												<FileEntry key={file.id} file={file} />
 											)) :
 											<tr>
-												<td colSpan={3} className="text-center">No files found</td>
+												<td colSpan={4} className="text-center">No files found</td>
 											</tr>
 									}
 								</tbody>
@@ -187,7 +187,7 @@ export default function Files(): ReactElement {
 												<FileEntry key={file.id} file={file} />
 											)) :
 											<tr>
-												<td colSpan={3} className="text-center">No files found</td>
+												<td colSpan={4} className="text-center">No files found</td>
 											</tr>
 									}
 								</tbody>
@@ -212,7 +212,7 @@ export default function Files(): ReactElement {
 														<FileEntry key={file.id} file={file} />
 													)) :
 													<tr>
-														<td colSpan={3} className="text-center">No files found</td>
+														<td colSpan={4} className="text-center">No files found</td>
 													</tr>
 											}
 										</tbody>
@@ -239,7 +239,7 @@ export default function Files(): ReactElement {
 														<FileEntry key={file.id} file={file} />
 													)) :
 													<tr>
-														<td colSpan={3} className="text-center">No files found</td>
+														<td colSpan={4} className="text-center">No files found</td>
 													</tr>
 											}
 										</tbody>

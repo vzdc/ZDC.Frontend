@@ -12,6 +12,7 @@ import { Announcement } from "../models/Announcement";
 import { Airport } from "../models/Airport";
 import { Overflight } from "../models/Overflight";
 import BounceLoader from "../components/BounceLoader";
+import { useSnackbar } from "notistack";
 
 interface OnlineControllerProps {
 	controllers: OnlineController[];
@@ -47,6 +48,7 @@ export default function Home(): ReactElement {
 	const [showAnnouncement, setShowAnnouncement] = useState(false);
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const [currentAnnouncement, setCurrentAnnouncement] = useState<any>({});
+	const { enqueueSnackbar } = useSnackbar();
 
 	useEffect(() => {
 		document.title = "Washington ARTCC - Home";
@@ -54,26 +56,81 @@ export default function Home(): ReactElement {
 			.then(response => {
 				setOnlineControllers(response.data);
 				setLoadingControllers(false);
+			})
+			.catch(error => {
+				setLoadingControllers(false);
+				enqueueSnackbar(error.toString(), {
+					variant: "error",
+					autoHideDuration: 3000,
+					anchorOrigin: {
+						vertical: "bottom",
+						horizontal: "right",
+					}
+				});
 			});
 		instance.get<Event[]>("/Events")
 			.then(response => {
 				setEvents(response.data.filter(x => new Date(x.start) >= new Date()));
 				setLoadingEvents(false);
+			})
+			.catch(error => {
+				setLoadingEvents(false);
+				enqueueSnackbar(error.toString(), {
+					variant: "error",
+					autoHideDuration: 3000,
+					anchorOrigin: {
+						vertical: "bottom",
+						horizontal: "right",
+					}
+				});
 			});
 		instance.get<Announcement[]>("/Announcements")
 			.then(response => {
 				setAnnouncements(response.data);
 				setLoadingAnnouncements(false);
+			})
+			.catch(error => {
+				setLoadingAnnouncements(false);
+				enqueueSnackbar(error.toString(), {
+					variant: "error",
+					autoHideDuration: 3000,
+					anchorOrigin: {
+						vertical: "bottom",
+						horizontal: "right",
+					}
+				});
 			});
 		instance.get<Airport[]>("/Airports")
 			.then(response => {
 				setAirports(response.data);
 				setLoadingAirports(false);
+			})
+			.catch(error => {
+				setLoadingAirports(false);
+				enqueueSnackbar(error.toString(), {
+					variant: "error",
+					autoHideDuration: 3000,
+					anchorOrigin: {
+						vertical: "bottom",
+						horizontal: "right",
+					}
+				});
 			});
 		instance.get<Overflight[]>("/Overflights")
 			.then(response => {
 				setOverflights(response.data);
 				setLoadingOverflights(false);
+			})
+			.catch(error => {
+				setLoadingOverflights(false);
+				enqueueSnackbar(error.toString(), {
+					variant: "error",
+					autoHideDuration: 3000,
+					anchorOrigin: {
+						vertical: "bottom",
+						horizontal: "right",
+					}
+				});
 			});
 	}, []);
 
